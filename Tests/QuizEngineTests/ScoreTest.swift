@@ -22,18 +22,34 @@ final class ScoreTest: XCTestCase {
 	}
 
 	func test_oneCorrectAnswerOneWrong_scoresOne() {
-		let score = BasicScore.score(for: ["correct 1", "wrong"], comparingTo: ["correct 1", "correct 2"])
+		let score = BasicScore.score(
+			for: ["correct 1", "wrong"],
+			comparingTo: ["correct 1", "correct 2"]
+		)
 		XCTAssertEqual(score, 1)
 	}
 
 	func test_twoCorrectAnswer_scoresTwo() {
-		XCTAssertEqual(BasicScore.score(for: ["correct 1", "correct 2"], comparingTo: ["correct 1", "correct 2"]), 2)
+		let score = BasicScore.score(
+			for: ["correct 1", "correct 2"],
+			comparingTo: ["correct 1", "correct 2"]
+		)
+		XCTAssertEqual(score, 2)
+	}
+
+	func test_withUnequalSizedData_twoCorrectAnswer_scoresTwo() {
+		let score = BasicScore.score(
+			for: ["correct 1", "correct 2", "an extra answer"],
+			comparingTo: ["correct 1", "correct 2"]
+		)
+		XCTAssertEqual(score, 2)
 	}
 
 	private class BasicScore {
 		static func score(for answers: [String], comparingTo correctAnswers: [String]) -> Int {
 			var score = 0
 			for (index, answer) in answers.enumerated() {
+				if index >= correctAnswers.count { return score }
 				score += (answer == correctAnswers[index]) ? 1 : 0
 			}
 			return score
