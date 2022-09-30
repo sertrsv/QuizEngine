@@ -4,6 +4,7 @@
 //
 //  Created by Sergey Tarasov on 29.09.2022.
 //
+
 public protocol QuizDelegate {
 	associatedtype Question
 	associatedtype Answer
