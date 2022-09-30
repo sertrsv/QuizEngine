@@ -5,7 +5,7 @@
 //  Created by Sergey Tarasov on 25.09.2022.
 //
 
-@available(*, deprecated)
+@available(*, deprecated, message: "use QuizDelegate instead")
 public protocol Router {
 	associatedtype Question: Hashable
 	associatedtype Answer
@@ -25,7 +25,7 @@ public struct Result<Question: Hashable, Answer> {
 	}
 }
 
-@available(*, deprecated)
+@available(*, deprecated, message: "use Quiz instead")
 public class Game <Question, Answer, R: Router> {
 	let flow: Any
 
@@ -34,7 +34,7 @@ public class Game <Question, Answer, R: Router> {
 	}
 }
 
-@available(*, deprecated)
+@available(*, deprecated, message: "use Quiz.start instead")
 public func startGame<Question, Answer: Equatable, R: Router>(
 	questions: [Question],
 	router: R,
@@ -48,7 +48,7 @@ public func startGame<Question, Answer: Equatable, R: Router>(
 	return Game(flow: flow)
 }
 
-@available(*, deprecated)
+@available(*, deprecated, message: "remove along with the deprecated Game types")
 private class QuizDelegateToRouterAdapter<R: Router>: QuizDelegate where R.Answer: Equatable {
 	private let router: R
 	private let correctAnswers: [R.Question: R.Answer]
