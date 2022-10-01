@@ -5,7 +5,7 @@
 //  Created by Sergey Tarasov on 25.09.2022.
 //
 
-class Flow <Delegate: QuizDelegate> {
+final class Flow <Delegate: QuizDelegate> {
 	typealias Question = Delegate.Question
 	typealias Answer = Delegate.Answer
 
