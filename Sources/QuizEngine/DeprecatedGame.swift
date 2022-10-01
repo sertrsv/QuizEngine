@@ -27,10 +27,10 @@ public struct Result<Question: Hashable, Answer> {
 
 @available(*, deprecated, message: "use Quiz instead")
 public class Game <Question, Answer, R: Router> {
-	let flow: Any
+	let quiz: Quiz
 
-	init(flow: Any) {
-		self.flow = flow
+	init(quiz: Quiz) {
+		self.quiz = quiz
 	}
 }
 
@@ -40,12 +40,9 @@ public func startGame<Question, Answer: Equatable, R: Router>(
 	router: R,
 	correctAnswers: [Question: Answer]
 ) -> Game<Question, Answer, R> where R.Question == Question, R.Answer == Answer {
-	let flow = Flow(
-		delegate: QuizDelegateToRouterAdapter(router: router, correctAnswers),
-		questions: questions
-	)
-	flow.start()
-	return Game(flow: flow)
+	let adapter = QuizDelegateToRouterAdapter(router: router, correctAnswers)
+	let quiz = Quiz.start(questions: questions, delegate: adapter)
+	return Game(quiz: quiz)
 }
 
 @available(*, deprecated, message: "remove along with the deprecated Game types")
